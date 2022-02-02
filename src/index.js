@@ -13,9 +13,16 @@ server.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
 });
 
+//Endpoints
 server.get('/movies', (req, res) => {
+  console.log(req.query);
+  const genderFilterParam = req.query.gender;
+  const filteredMovies = moviesData.filter((movie) =>
+    movie.gender.includes(genderFilterParam)
+  );
+
   res.json({
     success: true,
-    movies: moviesData,
+    movies: filteredMovies,
   });
 });
