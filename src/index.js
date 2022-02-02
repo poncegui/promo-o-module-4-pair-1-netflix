@@ -16,19 +16,6 @@ server.listen(serverPort, () => {
 server.get('/movies', (req, res) => {
   res.json({
     success: true,
-    movies: [
-      {
-        id: '1',
-        title: 'Gambita de dama',
-        gender: 'Drama',
-        image: 'https://via.placeholder.com/150',
-      },
-      {
-        id: '2',
-        title: 'Friends',
-        gender: 'Comedia',
-        image: 'https://via.placeholder.com/150',
-      },
-    ],
+    movies: moviesData,
   });
 });
