@@ -17,9 +17,16 @@ server.listen(serverPort, () => {
 server.get('/movies', (req, res) => {
   console.log(req.query);
   const genderFilterParam = req.query.gender;
-  const filteredMovies = moviesData.filter((movie) =>
-    movie.gender.includes(genderFilterParam)
-  );
+  const filteredMovies = moviesData
+    .filter((movie) => movie.gender.includes(genderFilterParam))
+    .sort(function (a, b) {
+      if (a.title > b.title) {
+        return 1;
+      } else if (a.title < b.title) {
+        return -1;
+      }
+      return 0;
+    });
 
   res.json({
     success: true,
