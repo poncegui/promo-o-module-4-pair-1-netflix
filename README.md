@@ -28,13 +28,13 @@ Por favor marca a continuación los ejericios que hayais terminado:
 - [x] 2. Arranca el backend
 - [x] 3. Arranca el front end
 - [x] 4. Prueba el proyecto
-- [x ] 5. Entiende el código del proyecto
+- [x] 5. Entiende el código del proyecto
 
   4.2 Express JS I:
 
-- [ x] 1. Pedir todas las películas
-- [ x] 2. Filtrar por género
-- [ x] 3. Ordenar por nombre
+- [x] 1. Pedir todas las películas
+- [x] 2. Filtrar por género
+- [x] 3. Ordenar por nombre
 
   4.3 Express JS II:
 
