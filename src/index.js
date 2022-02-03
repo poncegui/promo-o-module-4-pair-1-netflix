@@ -33,3 +33,7 @@ server.get('/movies', (req, res) => {
     movies: filteredMovies,
   });
 });
+
+// Static Server
+const staticServerPathWeb = './public-react'; // Static files
+server.use(express.static(staticServerPathWeb));
