@@ -8,10 +8,23 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
+//Set template middleware
+server.set('view engine', 'ejs');
+
 // init express aplication
 const serverPort = 4000;
 server.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
+});
+
+//Template engine - to get the movies id
+server.get('/movie/:movieId', (req, res) => {
+  console.log(req.params.movieId); //Show URL params
+  const foundMovie = moviesData.find(
+    (movie) => movie.id === req.params.movieId
+  );
+  console.log(foundMovie);
+  res.render('pages/movie', foundMovie);
 });
 
 // Static Server
@@ -21,6 +34,10 @@ server.use(express.static(staticServerPathWeb));
 // Static Server for images
 const staticServerPathImages = './src/public-movies-images'; // Static files
 server.use(express.static(staticServerPathImages));
+
+// Static Server for css
+const staticServerPathCss = './src/public-movies-images'; // Static files
+server.use(express.static(staticServerPathCss));
 
 //Endpoints
 server.get('/movies', (req, res) => {
@@ -43,6 +60,7 @@ server.get('/movies', (req, res) => {
   });
 });
 
+//Endpoint post for login
 server.post('/login', (req, res) => {
   console.log(req.body);
   const loginEmail = req.body.email;
