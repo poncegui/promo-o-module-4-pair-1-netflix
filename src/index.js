@@ -39,7 +39,7 @@ const staticServerPathImages = './src/public-movies-images'; // Static files
 server.use(express.static(staticServerPathImages));
 
 // Static Server for css
-const staticServerPathCss = './src/public-movies-images'; // Static files
+const staticServerPathCss = './src/public-movies-styles'; // Static files
 server.use(express.static(staticServerPathCss));
 
 //Endpoints
