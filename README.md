@@ -49,18 +49,18 @@ Por favor marca a continuación los ejericios que hayais terminado:
 - [x] 2. Obtener la película
 - [x] 3. Renderiza una página cualquiera
 - [x] 4. Renderiza la película
-- [ ] 5. Añade estilos
+- [x] 5. Añade estilos
 
   4.5 Bases de datos I:
 
-- [ ] 1. Crear la base de datos
-- [ ] 2. Configura la base de datos en Node JS
-- [ ] 3. Haz un SELECT para obtener todas películas
-- [ ] 4. Mejora tu SELECT
-- [ ] 5. SELECT para el motor de plantillas
-- [ ] 6. Crear la tabla de usuarias
+- [x] 1. Crear la base de datos
+- [x] 2. Configura la base de datos en Node JS
+- [x] 3. Haz un SELECT para obtener todas películas
+- [x] 4. Mejora tu SELECT
+- [x] 5. SELECT para el motor de plantillas
+- [x] 6. Crear la tabla de usuarias
 
-  4.6 Bases de datos I:
+  4.6 Bases de datos II:
 
 - [ ] 1. Registro de nuevas usuarias en el front
 - [ ] 2. Registro de nuevas usuarias en el back
@@ -70,7 +70,7 @@ Por favor marca a continuación los ejericios que hayais terminado:
 - [ ] 6. Recupera los datos del perfil de la usuaria desde el front
 - [ ] 7. Recupera los datos del perfil de la usuaria desde el back
 
-  4.7 Bases de datos I:
+  4.7 Bases de datos III:
 
 - [ ] 1. Pensar qué relación es
 - [ ] 2. Crear una relación N a N
