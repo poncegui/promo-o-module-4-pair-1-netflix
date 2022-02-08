@@ -24,6 +24,7 @@ const db = new Database('./src/db/database.db', {
 ///STATICS here when finish all server
 
 //Template engine - to get the movies id
+//Endpoints
 server.get('/movie/:movieId', (req, res) => {
   console.log(req.params.movieId); //Show URL params
   const movieId = req.params.movieId; //movie id that we get by qparams
@@ -56,13 +57,40 @@ server.post('/sign-up', (req, res) => {
 
 server.post('/user/profile', (req, res) => {
   console.log(req.body);
+  console.log('userId abajo');
   console.log(req.headers.user_id);
-
-  const userData = req.body;
+  const emailUpdated = req.body.email;
+  const passwordUpdated = req.body.password;
+  const nameUpdated = req.body.name;
   const userId = req.headers.user_id;
+  const query = db.prepare(
+    `UPDATE users SET email = ?, password = ?, name = ? WHERE id = ?`
+  );
+  const resultUpdate = query.run(
+    emailUpdated,
+    passwordUpdated,
+    nameUpdated,
+    userId
+  );
+
+  if (resultUpdate.changes !== 0) {
+    res.json({
+      success: true,
+      message: 'Usario modificado con éxito.',
+    });
+  } else {
+    res.json({ success: false, message: 'Usario NO modificado.' });
+  }
 });
 
-//Endpoints
+// server.get('/user/profile', (req, res) => {
+//   const userId = req.headers.user_id;
+//   console.log('get--> user/profile');
+//   console.log(userId);
+//   console.log(req.query);
+//   const query = db.prepare(`SELECT * FROM users WHERE id = ?`);
+// });
+
 server.get('/movies', (req, res) => {
   if (req.query.gender) {
     const query = db.prepare(
