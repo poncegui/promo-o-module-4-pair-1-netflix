@@ -73,23 +73,21 @@ server.post('/user/profile', (req, res) => {
     userId
   );
 
-  if (resultUpdate.changes !== 0) {
-    res.json({
-      success: true,
-      message: 'Usario modificado con éxito.',
-    });
-  } else {
-    res.json({ success: false, message: 'Usario NO modificado.' });
-  }
+  resultUpdate.changes !== 0
+    ? res.json({
+        success: true,
+        message: 'Usario modificado con éxito.',
+      })
+    : res.json({ success: false, message: 'Usario NO modificado.' });
 });
 
-// server.get('/user/profile', (req, res) => {
-//   const userId = req.headers.user_id;
-//   console.log('get--> user/profile');
-//   console.log(userId);
-//   console.log(req.query);
-//   const query = db.prepare(`SELECT * FROM users WHERE id = ?`);
-// });
+server.get('/user/profile', (req, res) => {
+  const userId = req.headers.user_id;
+  console.log('userID del get profile', userId);
+  const query = db.prepare(`SELECT * FROM users WHERE id = ?`);
+  const userProfile = query.get(userId);
+  res.json(userProfile);
+});
 
 server.get('/movies', (req, res) => {
   if (req.query.gender) {
