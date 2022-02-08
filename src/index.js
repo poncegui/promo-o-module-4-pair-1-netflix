@@ -57,6 +57,9 @@ server.post('/sign-up', (req, res) => {
 server.post('/user/profile', (req, res) => {
   console.log(req.body);
   console.log(req.headers.user_id);
+
+  const userData = req.body;
+  const userId = req.headers.user_id;
 });
 
 //Endpoints
