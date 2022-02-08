@@ -21,6 +21,8 @@ const db = new Database('./src/db/database.db', {
   verbose: console.log, //log in console all data base queries
 });
 
+///STATICS here when finish all server
+
 //Template engine - to get the movies id
 server.get('/movie/:movieId', (req, res) => {
   console.log(req.params.movieId); //Show URL params
@@ -42,8 +44,8 @@ server.post('/sign-up', (req, res) => {
     const query = db.prepare(
       `INSERT INTO users (email, password) VALUES (?, ?)`
     );
-    query.run(signUpMail, signUpPassword);
-    res.json({ success: true, userId: 'nuevo-id-añadido' });
+    const newUserId = query.run(signUpMail, signUpPassword);
+    res.json({ success: true, userId: newUserId.lastInsertRowid });
   } else {
     res.json({
       success: false,
@@ -54,19 +56,8 @@ server.post('/sign-up', (req, res) => {
 
 server.post('/user/profile', (req, res) => {
   console.log(req.body);
-  console.log(req.headers);
+  console.log(req.headers.user_id);
 });
-// Static Server
-const staticServerPathWeb = './src/public-react'; // Static files
-server.use(express.static(staticServerPathWeb));
-
-// Static Server for images
-const staticServerPathImages = './src/public-movies-images'; // Static files
-server.use(express.static(staticServerPathImages));
-
-// Static Server for css
-const staticServerPathCss = './src/public-movies-styles'; // Static files
-server.use(express.static(staticServerPathCss));
 
 //Endpoints
 server.get('/movies', (req, res) => {
@@ -102,7 +93,7 @@ server.post('/login', (req, res) => {
   userId //if query returns a user, then it returns its id
     ? res.json({
         success: true,
-        userId, //-----------------PREGUNTAR-----------
+        userId: userId.id,
       })
     : res.json({
         //Else, it returns an error message
@@ -110,3 +101,15 @@ server.post('/login', (req, res) => {
         errorMessage: 'Usuaria/o no encontrada/o',
       });
 });
+
+// Static Server
+const staticServerPathWeb = './src/public-react'; // Static files
+server.use(express.static(staticServerPathWeb));
+
+// Static Server for images
+const staticServerPathImages = './src/public-movies-images'; // Static files
+server.use(express.static(staticServerPathImages));
+
+// Static Server for css
+const staticServerPathCss = './src/public-movies-styles'; // Static files
+server.use(express.static(staticServerPathCss));

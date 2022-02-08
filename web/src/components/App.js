@@ -127,6 +127,7 @@ const App = () => {
   También le tenemos que indicar cuál es la usuaria actual, por ello enviamos el userId
   */
   const sendProfileToApi = (userId, data) => {
+    console.log(userId, data);
     apiUser.sendProfileToApi(userId, data).then(() => {
       // Después de enviar los datos al servidor los volvemos a pedir al servidor para tenerlos actualizados
       apiUser.getProfileFromApi(userId).then((response) => {

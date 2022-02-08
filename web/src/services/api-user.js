@@ -19,10 +19,8 @@ const sendLoginToApi = (data) => {
 // signup
 const sendSingUpToApi = (data) => {
   console.log('Se están enviando datos al signup:', data);
-
   //Fetch that points to the /signup endpoint and sends by POST mail+password
   return fetch('http://localhost:4000/sign-up', {
-    // <--- revisar!!------------------
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
@@ -36,15 +34,16 @@ const sendSingUpToApi = (data) => {
 };
 
 // profile
-//-----------VER------------
 const sendProfileToApi = (userId, data) => {
   console.log('Se están enviando datos al profile:', userId, data);
-  // CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
+  console.log(userId);
+
   return fetch('http://localhost:4000/user/profile', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
-      'user-id': userId,
+      'Content-Type': 'application/json',
+      user_id: userId,
     },
   })
     .then((response) => response.json())
