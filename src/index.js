@@ -30,6 +30,32 @@ server.get('/movie/:movieId', (req, res) => {
   res.render('pages/movie', movie); //Render the template with the data of query
 });
 
+server.post('/sign-up', (req, res) => {
+  console.log(req.body);
+  const signUpMail = req.body.email;
+  const signUpPassword = req.body.password;
+  //Check if there's another user using the same mail
+  const queryMail = db.prepare(`SELECT * FROM users WHERE email = ?`);
+  const foundUserMail = queryMail.get(signUpMail);
+  console.log(foundUserMail);
+  if (foundUserMail === undefined) {
+    const query = db.prepare(
+      `INSERT INTO users (email, password) VALUES (?, ?)`
+    );
+    query.run(signUpMail, signUpPassword);
+    res.json({ success: true, userId: 'nuevo-id-añadido' });
+  } else {
+    res.json({
+      success: false,
+      errorMessage: 'Usuaria ya existente',
+    });
+  }
+});
+
+server.post('/user/profile', (req, res) => {
+  console.log(req.body);
+  console.log(req.headers);
+});
 // Static Server
 const staticServerPathWeb = './src/public-react'; // Static files
 server.use(express.static(staticServerPathWeb));
@@ -76,7 +102,7 @@ server.post('/login', (req, res) => {
   userId //if query returns a user, then it returns its id
     ? res.json({
         success: true,
-        userId,
+        userId, //-----------------PREGUNTAR-----------
       })
     : res.json({
         //Else, it returns an error message
