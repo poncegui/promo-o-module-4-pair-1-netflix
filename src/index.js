@@ -89,6 +89,39 @@ server.get('/user/profile', (req, res) => {
   res.json(userProfile);
 });
 
+server.get('/user/movies', (req, res) => {
+  //prepare query to get the movieIds
+  const movieIdsQuery = db.prepare(
+    'SELECT movieId FROM rel_movies_users WHERE userId = ?'
+  );
+  // get the user id
+  // const userId = req.header('user-id');
+  const userId = req.headers.user_id;
+  console.log('userID del moviesss', userId);
+  //execute the query
+  const movieIds = movieIdsQuery.all(userId); // it returns for example: [{ movieId: 1 }, { movieId: 2 }];
+
+  //Get the '?' separated by ','
+  const moviesIdsQuestions = movieIds.map((id) => '?').join(', '); // it returns '?, ?'
+
+  // prepare second query to get all data of the movieIds
+  const moviesQuery = db.prepare(
+    `SELECT * FROM movies WHERE id IN (${moviesIdsQuestions})`
+  );
+
+  // transform the above array of id objects to an array of numbers
+  const moviesIdsNumbers = movieIds.map((movie) => movie.movieId); // it returns: [1.0, 2.0]
+
+  //execute the second query
+  const movies = moviesQuery.all(moviesIdsNumbers);
+
+  // response to the query
+  res.json({
+    success: true,
+    movies: movies,
+  });
+});
+
 server.get('/movies', (req, res) => {
   if (req.query.gender) {
     const query = db.prepare(

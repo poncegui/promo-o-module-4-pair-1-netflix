@@ -54,7 +54,6 @@ const sendProfileToApi = (userId, data) => {
 
 const getProfileFromApi = (userId) => {
   console.log('Se están pidiendo datos del profile del usuario:', userId);
-  // CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
   return fetch('//localhost:4000/user/profile', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json', user_id: userId },
@@ -72,25 +71,13 @@ const getUserMoviesFromApi = (userId) => {
     'Se están pidiendo datos de las películas de la usuaria:',
     userId
   );
-  // CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
-  return fetch(
-    '//beta.adalab.es/curso-intensivo-fullstack-recursos/apis/netflix-v1/empty.json'
-  )
+  return fetch('//localhost:4000/user/movies', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json', user_id: userId },
+  })
     .then((response) => response.json())
-    .then(() => {
-      // CAMBIA EL CONTENIDO DE ESTE THEN PARA GESTIONAR LA RESPUESTA DEL SERVIDOR Y RETORNAR AL COMPONENTE APP LO QUE NECESITA
-      return {
-        success: true,
-        movies: [
-          {
-            id: 1,
-            title: 'Gambita de dama',
-            gender: 'Drama',
-            image:
-              '//beta.adalab.es/curso-intensivo-fullstack-recursos/apis/netflix-v1/images/gambito-de-dama.jpg',
-          },
-        ],
-      };
+    .then((data) => {
+      return data;
     });
 };
 
